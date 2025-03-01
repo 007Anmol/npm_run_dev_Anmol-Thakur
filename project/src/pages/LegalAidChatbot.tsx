@@ -108,7 +108,7 @@ const syntheticLawyers: Lawyer[] = [
 
 const huggingFaceConfig: HuggingFaceConfig = {
   model: "vishnun0027/Llama-3.2-1B-Instruct-Indian-Law",
-  apiToken: "YOUR_HUGGING_FACE_TOKEN", // Replace this with your actual token
+  apiToken: "hf_abcABCabcABCabcABCabcABCabcABCabC", // Replace this with your actual token
   apiUrl: "https://api-inference.huggingface.co/models/vishnun0027/Llama-3.2-1B-Instruct-Indian-Law"
 };
 
@@ -409,278 +409,123 @@ const LegalAidChatbot = () => {
     }
   };
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const sendMessage = async () => {
     if (!inputText.trim()) return;
-    
-    // Detect the user's intent
-    const detectedMode = detectUserIntent(inputText);
-    setMode(detectedMode);
-    
-    // Add user message
+
     const userMessage: Message = {
       id: messages.length + 1,
       text: inputText,
       sender: 'user',
       timestamp: new Date()
     };
-    
+
     setMessages([...messages, userMessage]);
     setInputText('');
     setIsTyping(true);
-    
-    try {
-      let responseText = "";
-      let documentType = undefined;
-      
-      // Handle lawyer referral requests differently
-      if (detectedMode === 'referral') {
-        const relevantLawyers = findRelevantLawyers(inputText);
-        responseText = formatLawyerReferrals(relevantLawyers, inputText);
-        documentType = 'lawyer-referral';
-      } else {
-        // Generate prompt for the model based on conversation history and detected mode
-        const prompt = generatePrompt([...messages, userMessage], detectedMode);
-        
-        // Get response from Hugging Face model
-        responseText = await queryHuggingFaceModel(prompt);
-        
-        // Set document type based on mode
-        if (detectedMode === 'notice') documentType = 'legal-notice';
-        if (detectedMode === 'roadmap') documentType = 'roadmap';
-      }
-      
-      // Extract potential sources and clean the text
-      const { cleanedText, sources } = extractSources(responseText);
-      
-      // Create bot response
-      const botResponse: Message = {
-        id: messages.length + 2,
-        text: cleanedText,
-        sender: 'bot',
-        timestamp: new Date(),
-        sources: sources,
-        documentType: documentType as any
-      };
-      
-      setMessages(prevMessages => [...prevMessages, botResponse]);
-    } catch (error) {
-      console.error("Error handling message:", error);
-      
-      // Fallback response in case of error
-      const errorResponse: Message = {
-        id: messages.length + 2,
-        text: "I'm sorry, I encountered an error while processing your request. Please try again later.",
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
-      setMessages(prevMessages => [...prevMessages, errorResponse]);
-    } finally {
-      setIsTyping(false);
+
+    // Determine the user's intent based on the message
+    const intent = detectUserIntent(inputText);
+    setMode(intent); // Set the mode based on detected intent
+
+    let botResponseText = "";
+    let sources;
+
+    if (intent === 'referral') {
+      // Handle lawyer referral request
+      const relevantLawyers = findRelevantLawyers(inputText);
+      botResponseText = formatLawyerReferrals(relevantLawyers, inputText);
+    } else {
+      // Generate prompt based on the detected intent
+      const prompt = generatePrompt(messages, intent);
+
+      // Query the Hugging Face model
+      const aiResponse = await queryHuggingFaceModel(prompt);
+
+      // Extract sources from the AI response
+      const { cleanedText, sources: extractedSources } = extractSources(aiResponse);
+      botResponseText = cleanedText;
+      sources = extractedSources;
     }
+
+    const botMessage: Message = {
+      id: messages.length + 2,
+      text: botResponseText,
+      sender: 'bot',
+      timestamp: new Date(),
+      sources: sources
+    };
+
+    setMessages([...messages, userMessage, botMessage]);
+    setIsTyping(false);
   };
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
   };
 
-  const getIconForDocumentType = (documentType?: string) => {
-    switch (documentType) {
-      case 'legal-notice':
-        return <FileText className="h-4 w-4 text-red-500" />;
-      case 'roadmap':
-        return <MapPin className="h-4 w-4 text-blue-500" />;
-      case 'lawyer-referral':
-        return <User className="h-4 w-4 text-purple-500" />;
-      default:
-        return null;
-    }
-  };
-
-  const getDocumentTypeLabel = (documentType?: string) => {
-    switch (documentType) {
-      case 'legal-notice':
-        return "Legal Notice";
-      case 'roadmap':
-        return "Procedural Roadmap";
-      case 'lawyer-referral':
-        return "Lawyer Referrals";
-      default:
-        return null;
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      sendMessage();
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-          <MessageSquare className="h-8 w-8 text-green-600" />
-        </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Indian Legal Aid Chatbot</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Get comprehensive legal assistance, document drafting, procedural roadmaps, and lawyer referrals.
-        </p>
+    <div className="flex flex-col h-screen">
+      <div className="bg-gray-100 py-4 px-6">
+        <h1 className="text-2xl font-semibold">Legal Aid Chatbot</h1>
+        <p className="text-gray-600">Your AI legal assistant for Indian Law</p>
       </div>
-      
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="md:col-span-3">
-          <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-[600px]">
-            <div className="bg-green-600 text-white px-6 py-4 flex items-center">
-              <MessageSquare className="h-5 w-5 mr-2" />
-              <h2 className="font-medium">Indian Legal Assistant</h2>
-            </div>
-            
-            <div className="flex-grow overflow-y-auto p-6">
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div 
-                    key={message.id} 
-                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div 
-                      className={`max-w-[80%] rounded-lg p-4 ${
-                        message.sender === 'user' 
-                          ? 'bg-green-600 text-white' 
-                          : 'bg-gray-100 text-gray-800'
-                      }`}
-                    >
-                      {message.documentType && (
-                        <div className="mb-2 flex items-center">
-                          {getIconForDocumentType(message.documentType)}
-                          <span className="text-xs font-medium ml-1">{getDocumentTypeLabel(message.documentType)}</span>
-                        </div>
-                      )}
-                      
-                      <div className="whitespace-pre-line">{message.text}</div>
-                      
-                      {message.sources && message.sources.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-gray-200 space-y-2">
-                          <p className="text-xs font-medium">Sources:</p>
-                          {message.sources.map((source, index) => (
-                            <a 
-                              key={index}
-                              href={source.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center text-xs text-blue-600 hover:underline"
-                            >
-                              <ExternalLink className="h-3 w-3 mr-1" />
-                              {source.title}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <div className={`text-xs mt-1 ${
-                        message.sender === 'user' ? 'text-green-200' : 'text-gray-500'
-                      }`}>
-                        {formatTime(message.timestamp)}
-                      </div>
-                      
-                      {message.sender === 'bot' && (
-                        <div className="mt-2 flex items-center space-x-2">
-                          <button className="p-1 rounded-full hover:bg-gray-200">
-                            <ThumbsUp className="h-3 w-3 text-gray-500" />
-                          </button>
-                          <button className="p-1 rounded-full hover:bg-gray-200">
-                            <ThumbsDown className="h-3 w-3 text-gray-500" />
-                          </button>
-                        </div>
-                      )}
+
+      <div className="flex-1 overflow-y-auto p-4">
+        {messages.map((message) => (
+          <div key={message.id} className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
+            <div
+              className={`inline-block rounded-lg py-2 px-4 ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
+            >
+              {message.text}
+              {message.sources && (
+                <div className="mt-2">
+                  {message.sources.map((source, index) => (
+                    <div key={index} className="text-sm">
+                      <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                        {source.title}
+                      </a>
                     </div>
-                  </div>
-                ))}
-                
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="bg-gray-100 rounded-lg p-4 max-w-[80%]">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                <div ref={messagesEndRef} />
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
-            
-            <div className="border-t border-gray-200 p-4">
-              <form onSubmit={handleSendMessage} className="flex items-center">
-                <input
-                  type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Type your legal question or request..."
-                  className="flex-grow border border-gray-300 rounded-l-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-                <button
-                  type="submit"
-                  className="bg-green-600 text-white rounded-r-lg py-2 px-4 hover:bg-green-700 transition-colors"
-                  disabled={!inputText.trim() || isTyping}
-                >
-                  <Send className="h-5 w-5" />
-                </button>
-              </form>
+            <div className="text-xs text-gray-500 mt-1">
+              {message.sender === 'user' ? 'You' : 'Bot'} - {message.timestamp.toLocaleTimeString()}
             </div>
           </div>
-        </div>
-        
-        <div className="md:col-span-1">
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-bold text-gray-900 mb-4">About This Chatbot</h3>
-            <div className="space-y-4 text-sm text-gray-700">
-              <div className="flex items-start">
-                <Info className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                <p>This AI assistant provides comprehensive legal assistance on Indian law.</p>
-              </div>
-              <div className="flex items-start">
-                <FileText className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                <p>Create legal notices and formal documents based on your situation.</p>
-              </div>
-              <div className="flex items-start">
-                <MapPin className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                <p>Get step-by-step procedural roadmaps for legal processes.</p>
-              </div>
-              <div className="flex items-start">
-                <User className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                <p>Find relevant lawyer referrals based on your case needs.</p>
-              </div>
-            </div>
-            
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4">Try These Requests</h3>
-              <div className="space-y-2">
-                <button 
-                  className="w-full text-left p-2 text-sm rounded-md hover:bg-gray-100 transition-colors"
-                  onClick={() => setInputText("Draft a legal notice for my landlord who is trying to evict me without proper notice")}
-                >
-                  Create an eviction dispute notice
-                </button>
-                <button 
-                  className="w-full text-left p-2 text-sm rounded-md hover:bg-gray-100 transition-colors"
-                  onClick={() => setInputText("What's the procedure to file an FIR for theft in Delhi?")}
-                >
-                  Get FIR filing procedure
-                </button>
-                <button 
-                  className="w-full text-left p-2 text-sm rounded-md hover:bg-gray-100 transition-colors"
-                  onClick={() => setInputText("Recommend a property lawyer in Mumbai for a land dispute case")}
-                >
-                  Find a property lawyer
-                </button>
-                <button 
-                  className="w-full text-left p-2 text-sm rounded-md hover:bg-gray-100 transition-colors"
-                  onClick={() => setInputText("What's the process for filing a consumer complaint against an e-commerce company?")}
-                >
-                  Consumer complaint process
-                </button>
-              </div>
+        ))}
+        {isTyping && (
+          <div className="text-left mb-2">
+            <div className="inline-block bg-gray-200 text-gray-800 rounded-lg py-2 px-4">
+              Typing...
             </div>
           </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      <div className="p-4 bg-gray-100 border-t border-gray-300">
+        <div className="flex items-center">
+          <input
+            type="text"
+            className="flex-1 border rounded-lg py-2 px-3 text-gray-700 focus:outline-none"
+            placeholder="Type your message..."
+            value={inputText}
+            onChange={handleInputChange}
+            onKeyDown={handleInputKeyDown}
+          />
+          <button
+            className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+            onClick={sendMessage}
+          >
+            Send
+          </button>
         </div>
       </div>
     </div>
