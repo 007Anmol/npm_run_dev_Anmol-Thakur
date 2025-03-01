@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+cryptography
+deep-translator
+opencv-python
+numpy
