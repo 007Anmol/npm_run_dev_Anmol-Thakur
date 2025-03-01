@@ -108,7 +108,7 @@ const syntheticLawyers: Lawyer[] = [
 
 const huggingFaceConfig: HuggingFaceConfig = {
   model: "vishnun0027/Llama-3.2-1B-Instruct-Indian-Law",
-  apiToken: "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", // Replace this with your actual token
+  apiToken: process.env.NEXT_PUBLIC_HUGGINGFACE_API_TOKEN || "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", // Use environment variable
   apiUrl: "https://api-inference.huggingface.co/models/vishnun0027/Llama-3.2-1B-Instruct-Indian-Law"
 };
 
@@ -369,6 +369,10 @@ const LegalAidChatbot = () => {
   // Function to query the Hugging Face model
   const queryHuggingFaceModel = async (prompt: string) => {
     try {
+      if (!huggingFaceConfig.apiToken) {
+        throw new Error("Hugging Face API token is missing.");
+      }
+
       const response = await fetch(huggingFaceConfig.apiUrl, {
         method: 'POST',
         headers: {
@@ -383,7 +387,9 @@ const LegalAidChatbot = () => {
             top_p: 0.9,
             do_sample: true
           }
-        })
+        }),
+        // Optional: Increase timeout if needed
+        // timeout: 10000, // 10 seconds
       });
 
       if (!response.ok) {
@@ -405,7 +411,7 @@ const LegalAidChatbot = () => {
       return generatedText;
     } catch (error) {
       console.error("Error querying Hugging Face model:", error);
-      return "I'm sorry, I encountered an error while processing your request. Please try again later.";
+      return "Failed to fetch data from the model.";
     }
   };
 
@@ -439,97 +445,4 @@ const LegalAidChatbot = () => {
       const prompt = generatePrompt(messages, intent);
 
       // Query the Hugging Face model
-      const aiResponse = await queryHuggingFaceModel(prompt);
-
-      // Extract sources from the AI response
-      const { cleanedText, sources: extractedSources } = extractSources(aiResponse);
-      botResponseText = cleanedText;
-      sources = extractedSources;
-    }
-
-    const botMessage: Message = {
-      id: messages.length + 2,
-      text: botResponseText,
-      sender: 'bot',
-      timestamp: new Date(),
-      sources: sources
-    };
-
-    setMessages([...messages, userMessage, botMessage]);
-    setIsTyping(false);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
-  };
-
-  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      sendMessage();
-    }
-  };
-
-  return (
-    <div className="flex flex-col h-screen">
-      <div className="bg-gray-100 py-4 px-6">
-        <h1 className="text-2xl font-semibold">Legal Aid Chatbot</h1>
-        <p className="text-gray-600">Your AI legal assistant for Indian Law</p>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4">
-        {messages.map((message) => (
-          <div key={message.id} className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
-            <div
-              className={`inline-block rounded-lg py-2 px-4 ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}
-            >
-              {message.text}
-              {message.sources && (
-                <div className="mt-2">
-                  {message.sources.map((source, index) => (
-                    <div key={index} className="text-sm">
-                      <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                        {source.title}
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="text-xs text-gray-500 mt-1">
-              {message.sender === 'user' ? 'You' : 'Bot'} - {message.timestamp.toLocaleTimeString()}
-            </div>
-          </div>
-        ))}
-        {isTyping && (
-          <div className="text-left mb-2">
-            <div className="inline-block bg-gray-200 text-gray-800 rounded-lg py-2 px-4">
-              Typing...
-            </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      <div className="p-4 bg-gray-100 border-t border-gray-300">
-        <div className="flex items-center">
-          <input
-            type="text"
-            className="flex-1 border rounded-lg py-2 px-3 text-gray-700 focus:outline-none"
-            placeholder="Type your message..."
-            value={inputText}
-            onChange={handleInputChange}
-            onKeyDown={handleInputKeyDown}
-          />
-          <button
-            className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-            onClick={sendMessage}
-          >
-            Send
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default LegalAidChatbot;
+      const
