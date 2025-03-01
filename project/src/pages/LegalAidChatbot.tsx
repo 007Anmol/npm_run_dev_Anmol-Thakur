@@ -108,7 +108,7 @@ const syntheticLawyers: Lawyer[] = [
 
 const huggingFaceConfig: HuggingFaceConfig = {
     model: "vishnun0027/Llama-3.2-1B-Instruct-Indian-Law",
-    apiToken: process.env.NEXT_PUBLIC_HUGGINGFACE_API_TOKEN || "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", // Use environment variable
+    apiToken: "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", // Use environment variable
     apiUrl: "https://api-inference.huggingface.co/models/vishnun0027/Llama-3.2-1B-Instruct-Indian-Law"
 };
 
@@ -369,9 +369,10 @@ const LegalAidChatbot = () => {
     // Function to query the Hugging Face model
     const queryHuggingFaceModel = async (prompt: string) => {
         try {
-            if (!huggingFaceConfig.apiToken) {
-                throw new Error("Hugging Face API token is missing.");
-            }
+            //  No need to check for env var, we are directly passing the token
+            // if (!huggingFaceConfig.apiToken) {
+            //     throw new Error("Hugging Face API token is missing.");
+            // }
 
             const response = await fetch(huggingFaceConfig.apiUrl, {
                 method: 'POST',
