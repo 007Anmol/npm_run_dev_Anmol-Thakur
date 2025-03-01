@@ -1,7 +1,6 @@
-"use client";
-import { cn } from "../lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
+import { cn } from "../lib/utils";
 
 interface WavyBackgroundProps {
   children?: React.ReactNode;
@@ -11,6 +10,7 @@ interface WavyBackgroundProps {
   waveWidth?: number;
   backgroundFill?: string;
   speed?: "slow" | "fast";
+  waveOpacity?: number; // ✅ Added waveOpacity prop
 }
 
 export const WavyBackground: React.FC<WavyBackgroundProps> = ({
@@ -21,6 +21,7 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
   waveWidth = 60,
   backgroundFill = "white",
   speed = "fast",
+  waveOpacity = 1, // ✅ Default to fully visible
 }) => {
   const noise = createNoise3D();
   let w: number,
@@ -30,7 +31,6 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
     x: number,
     ctx: CanvasRenderingContext2D | null;
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [animationComplete, setAnimationComplete] = useState(false);
 
   const getSpeed = () => (speed === "fast" ? 0.002 : 0.001);
 
@@ -51,8 +51,7 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
     render();
   };
 
-  // Bluish & Purplish Wave Colors
-  const waveColors = colors ?? ["#4F46E5", "#6D28D9", "#9333EA", "#7C3AED"];
+  const waveColors = colors ?? ["#4F46E5", "#6D28D9", "#9333EA", "#7C3AED"]; // Default bluish-purplish theme
 
   const drawWave = (n: number) => {
     if (!ctx) return;
@@ -60,7 +59,7 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
     for (i = 0; i < n; i++) {
       ctx.beginPath();
       ctx.lineWidth = waveWidth;
-      ctx.globalAlpha = 1; // Ensure full opacity
+      ctx.globalAlpha = waveOpacity; // ✅ Apply opacity dynamically
       ctx.strokeStyle = waveColors[i % waveColors.length];
 
       for (x = 0; x < w; x += 5) {
@@ -75,18 +74,11 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
 
   let animationId: number;
   const render = () => {
-    if (!ctx || animationComplete) return;
-
+    if (!ctx) return;
     ctx.fillStyle = backgroundFill;
-    ctx.globalAlpha = 1; // Ensure background is solid white
+    ctx.globalAlpha = 1;
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
-
-    if (nt >= 3) {
-      // Stop animation after completing a cycle
-      setAnimationComplete(true);
-      return;
-    }
 
     animationId = requestAnimationFrame(render);
   };
