@@ -108,7 +108,7 @@ const syntheticLawyers: Lawyer[] = [
 
 const huggingFaceConfig: HuggingFaceConfig = {
   model: "vishnun0027/Llama-3.2-1B-Instruct-Indian-Law",
-  apiToken: "hf_abcABCabcABCabcABCabcABCabcABCabC", // Replace this with your actual token
+  apiToken: "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", // Replace this with your actual token
   apiUrl: "https://api-inference.huggingface.co/models/vishnun0027/Llama-3.2-1B-Instruct-Indian-Law"
 };
 
