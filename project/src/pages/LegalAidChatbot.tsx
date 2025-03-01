@@ -49,7 +49,7 @@ const LegalAidChatbot = () => {
   // Function to generate chat prompt for the model
   const generatePrompt = (conversation: Message[]) => {
     // Format the conversation history for the LLM
-    let prompt = "You are a helpful legal assistant specializing in Indian law. Provide accurate, ethical, and helpful responses. Cite relevant laws and sources when possible.\n\n";
+    let prompt = "You are a helpful expert legal assistant specializing in Indian law. Provide accurate, ethical, and helpful responses. Cite relevant laws and sources when possible. Give comprehensive results \n\n";
     
     // Add conversation history to the prompt
     conversation.forEach(msg => {
