@@ -5,6 +5,7 @@ import DocumentAnalysis from "./pages/DocumentAnalysis";
 import CaseLawRetrieval from "./pages/CaseLawRetrieval";
 import LegalAidChatbot from "./pages/LegalAidChatbot";
 import NewsAndLibrary from "./pages/NewsAndLibrary";
+import Lawyers from "./pages/Lawyers";
 import LawList from "./pages/LawList";
 import NewsAndHeadline from "./pages/NewsAndHeadline";
 import Navbar from "./components/Navbar";
@@ -21,6 +22,7 @@ function App() {
             <Route path="/document-analysis" element={<DocumentAnalysis />} />
             <Route path="/case-law-retrieval" element={<CaseLawRetrieval />} />
             <Route path="/legal-aid-chatbot" element={<LegalAidChatbot />} />
+            <Route path="/lawyers" element={<Lawyers />} />
             <Route path="/news-and-library" element={<NewsAndLibrary />} />
             <Route path="/law-list" element={<LawList />} />
             <Route path="/news-headlines" element={<NewsAndHeadline />} />

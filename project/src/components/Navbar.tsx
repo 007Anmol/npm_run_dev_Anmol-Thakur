@@ -4,82 +4,73 @@ import { Scale, Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Document", path: "/document-analysis" },
+    { name: "Case Law", path: "/case-law-retrieval" },
+    { name: "Chatbot", path: "/legal-aid-chatbot" },
+    { name: "Lawyers", path: "/lawyers" },
+    { name: "News & Library", path: "/news-and-library" },
+  ];
 
   return (
     <nav className="bg-indigo-900 text-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
-          {" "}
-          {/* Increased height */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <Scale className="h-10 w-10 mr-3" /> {/* Increased logo size */}
-              <span className="font-extrabold text-2xl">
-                LegalAssist AI
-              </span>{" "}
-              {/* Bolder text */}
-            </Link>
-          </div>
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-6">
-            {" "}
-            {/* More spacing */}
-            {[
-              { name: "Home", path: "/" },
-              { name: "Document Analysis", path: "/document-analysis" },
-              { name: "Case Law Retrieval", path: "/case-law-retrieval" },
-              { name: "Legal Aid Chatbot", path: "/legal-aid-chatbot" },
-              { name: "News & Library", path: "/news-and-library" },
-            ].map((item) => (
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3">
+            <Scale className="h-10 w-10 text-white" />
+            <span className="text-2xl font-extrabold">advocate.ai</span>
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-4 overflow-x-auto flex-nowrap">
+            {navLinks.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-5 py-3 rounded-md font-semibold text-lg transition-colors ${
+                className={`text-base font-semibold px-3 py-2 rounded-md transition duration-300 ${
                   location.pathname === item.path
-                    ? "bg-indigo-700 text-white" // Active link color
-                    : "hover:bg-indigo-800 hover:text-gray-200"
+                    ? "bg-indigo-700"
+                    : "hover:bg-indigo-800"
                 }`}
               >
                 {item.name}
               </Link>
             ))}
           </div>
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-3 rounded-md hover:bg-indigo-800 focus:outline-none"
+              className="text-white focus:outline-none"
             >
               {isMenuOpen ? (
-                <X className="h-8 w-8" />
+                <X className="w-8 h-8" />
               ) : (
-                <Menu className="h-8 w-8" />
+                <Menu className="w-8 h-8" />
               )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-indigo-900">
-          <div className="px-4 pt-3 pb-5 space-y-3">
-            {[
-              { name: "Home", path: "/" },
-              { name: "Document Analysis", path: "/document-analysis" },
-              { name: "Case Law Retrieval", path: "/case-law-retrieval" },
-              { name: "Legal Aid Chatbot", path: "/legal-aid-chatbot" },
-              { name: "News & Library", path: "/news-and-library" },
-            ].map((item) => (
+          <div className="px-6 py-4 space-y-3">
+            {navLinks.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block px-4 py-3 rounded-md font-semibold text-lg transition-colors ${
+                className={`block text-base font-semibold ${
                   location.pathname === item.path
-                    ? "bg-indigo-700 text-white"
-                    : "hover:bg-indigo-800 hover:text-gray-200"
+                    ? "bg-indigo-700 rounded-md p-3"
+                    : "hover:bg-indigo-800 rounded-md p-3"
                 }`}
               >
                 {item.name}
