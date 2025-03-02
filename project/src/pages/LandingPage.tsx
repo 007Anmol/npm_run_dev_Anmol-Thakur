@@ -105,7 +105,7 @@ const LandingPage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 bg-[#f5c6a3]">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -126,12 +126,12 @@ const LandingPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-bold">Sarah Johnson</h4>
+                  <h4 className="font-bold">Aarti Sharma</h4>
                   <p className="text-gray-600 text-sm">Community Advocate</p>
                 </div>
               </div>
               <p className="text-black">
-                "LegalAssist AI has transformed how our community accesses legal
+                "Advocate AI has transformed how our community accesses legal
                 help. The document analysis tool made complex lease agreements
                 understandable for everyone."
               </p>
@@ -145,7 +145,7 @@ const LandingPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-bold">Michael Rodriguez</h4>
+                  <h4 className="font-bold">Ravi Gupta</h4>
                   <p className="text-black text-sm">Legal Aid Volunteer</p>
                 </div>
               </div>
@@ -164,7 +164,7 @@ const LandingPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-bold">Aisha Williams</h4>
+                  <h4 className="font-bold">Aisha Sharma</h4>
                   <p className="text-black text-sm">Small Business Owner</p>
                 </div>
               </div>
@@ -174,31 +174,6 @@ const LandingPage = () => {
                 obligations and saved me thousands in consulting fees."
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-[#A67B5B] text-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-xl text-black mb-8 max-w-3xl mx-auto">
-            Explore our AI-powered legal assistance tools and experience the
-            future of accessible legal guidance.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <a
-              href="#features"
-              className="px-8 py-3 bg-white text-[#000000] font-medium rounded-lg shadow hover:bg-indigo-50 transition-colors"
-            >
-              Explore Features
-            </a>
-            <a
-              href="#"
-              className="px-8 py-3 border border-white text-black font-medium rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors"
-            >
-              Contact Us
-            </a>
           </div>
         </div>
       </section>

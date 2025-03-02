@@ -42,7 +42,7 @@ const Lawyers: React.FC = () => {
     const lawyerData: Lawyer[] = [
       {
         id: 1,
-        name: "James Wilson",
+        name: "Ananya Zore",
         specialty: "corporate",
         specialtyDisplay: "Corporate Law",
         experience: "senior",
@@ -56,7 +56,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 2,
-        name: "Sarah Chen",
+        name: "Avantika Sankhe",
         specialty: "corporate",
         specialtyDisplay: "Corporate Law",
         experience: "mid",
@@ -70,7 +70,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 3,
-        name: "Michael Rodriguez",
+        name: "Aroop Rath",
         specialty: "corporate",
         specialtyDisplay: "Corporate Law",
         experience: "senior",
@@ -83,7 +83,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 4,
-        name: "Emily Johnson",
+        name: "Anmol Thakur",
         specialty: "corporate",
         specialtyDisplay: "Corporate Law",
         experience: "junior",
@@ -96,7 +96,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 5,
-        name: "David Patel",
+        name: "Rishabh Jain",
         specialty: "corporate",
         specialtyDisplay: "Corporate Law",
         experience: "mid",
@@ -110,7 +110,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 6,
-        name: "Robert Jackson",
+        name: "Devansh Dhruve",
         specialty: "criminal",
         specialtyDisplay: "Criminal Law",
         experience: "senior",
@@ -123,7 +123,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 7,
-        name: "Maria Gonzalez",
+        name: "Maria Gupta",
         specialty: "criminal",
         specialtyDisplay: "Criminal Law",
         experience: "mid",
@@ -137,7 +137,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 8,
-        name: "Thomas Washington",
+        name: "Thomas Tripathi",
         specialty: "criminal",
         specialtyDisplay: "Criminal Law",
         experience: "senior",
@@ -150,7 +150,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 9,
-        name: "Jessica Kim",
+        name: "Jessica Kohli",
         specialty: "criminal",
         specialtyDisplay: "Criminal Law",
         experience: "junior",
@@ -163,7 +163,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 10,
-        name: "Andre Williams",
+        name: "Om Williams",
         specialty: "criminal",
         specialtyDisplay: "Criminal Law",
         experience: "mid",
@@ -177,7 +177,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 11,
-        name: "Lisa Thompson",
+        name: "Lisa Tripathi",
         specialty: "civil",
         specialtyDisplay: "Civil Law",
         experience: "senior",
@@ -190,7 +190,7 @@ const Lawyers: React.FC = () => {
       },
       {
         id: 12,
-        name: "Daniel Brown",
+        name: "Dirgh Brown",
         specialty: "civil",
         specialtyDisplay: "Civil Law",
         experience: "mid",

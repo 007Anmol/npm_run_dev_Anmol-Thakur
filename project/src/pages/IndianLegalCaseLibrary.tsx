@@ -211,7 +211,7 @@ const IndianLegalCaseLibrary: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-blue-800 text-white p-4">
+      <header className="bg-black text-white p-4">
         <h1 className="text-2xl font-bold">Indian Legal Case Library</h1>
       </header>
 
@@ -224,7 +224,7 @@ const IndianLegalCaseLibrary: React.FC = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <button 
               onClick={backToList}
-              className="mb-4 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
+              className="mb-4 bg-black text-black px-4 py-2 rounded hover:bg-blue-800"
             >
               ← Back to Cases
             </button>
@@ -252,7 +252,7 @@ const IndianLegalCaseLibrary: React.FC = () => {
               <h3 className="text-lg font-semibold mb-2">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {selectedCase.tags.map((tag, index) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
+                  <span key={index} className="bg-blue-100 text-black px-2 py-1 rounded text-sm">
                     {tag}
                   </span>
                 ))}
@@ -368,7 +368,7 @@ const IndianLegalCaseLibrary: React.FC = () => {
                       className="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow cursor-pointer"
                       onClick={() => handleCaseSelect(legalCase)}
                     >
-                      <h3 className="text-xl font-semibold mb-2 text-blue-800">{legalCase.title}</h3>
+                      <h3 className="text-xl font-semibold mb-2 text-black">{legalCase.title}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3 text-sm text-gray-600">
                         <p><strong>Citation:</strong> {legalCase.citation}</p>
                         <p><strong>Court:</strong> {legalCase.court}</p>
@@ -377,7 +377,7 @@ const IndianLegalCaseLibrary: React.FC = () => {
                       <p className="text-gray-700 mb-3 line-clamp-2">{legalCase.summary}</p>
                       <div className="flex flex-wrap gap-2">
                         {legalCase.category.map((cat, index) => (
-                          <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                          <span key={index} className="bg-blue-100 text-black px-2 py-1 rounded text-xs">
                             {cat}
                           </span>
                         ))}

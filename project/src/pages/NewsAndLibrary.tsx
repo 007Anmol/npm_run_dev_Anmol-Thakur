@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NewsAndLibrary = () => {
   return (
     <div className="container mx-auto py-12 px-6">
-      <h1 className="text-4xl font-bold text-center text-indigo-900 mb-8">
+      <h1 className="text-4xl font-bold text-center text-black mb-8">
         News & Library
       </h1>
 
@@ -15,7 +15,7 @@ const NewsAndLibrary = () => {
           to="/law-list"
           className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 text-center transform hover:scale-105 transition duration-300"
         >
-          <h2 className="text-2xl font-semibold text-indigo-800">Law List</h2>
+          <h2 className="text-2xl font-semibold text-black">Law List</h2>
           <p className="text-gray-600 mt-2">
             Explore a comprehensive list of laws and regulations.
           </p>
@@ -26,7 +26,7 @@ const NewsAndLibrary = () => {
           to="/news-headlines"
           className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 text-center transform hover:scale-105 transition duration-300"
         >
-          <h2 className="text-2xl font-semibold text-indigo-800">
+          <h2 className="text-2xl font-semibold text-black">
             News & Headlines
           </h2>
           <p className="text-gray-600 mt-2">
@@ -39,7 +39,7 @@ const NewsAndLibrary = () => {
           to="/legal-case-library"
           className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8 text-center transform hover:scale-105 transition duration-300"
         >
-          <h2 className="text-2xl font-semibold text-indigo-800">
+          <h2 className="text-2xl font-semibold text-black">
             Legal Case Library
           </h2>
           <p className="text-gray-600 mt-2">

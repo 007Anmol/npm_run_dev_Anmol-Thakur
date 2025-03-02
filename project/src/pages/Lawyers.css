@@ -18,9 +18,10 @@
   text-align: center;
   padding: 20px 0;
   margin-bottom: 30px;
-  background-color: #1a3a6d;
-  color: white;
+  background-color: beige;
+  color: black;
   border-radius: 8px;
+  font-weight: bold;
 }
 
 .lawyers-header h1 {
@@ -60,7 +61,7 @@
 }
 
 .search-btn {
-  background-color: #e74c3c;
+  background-color: #060100;
   color: white;
   border: none;
   padding: 12px 20px;

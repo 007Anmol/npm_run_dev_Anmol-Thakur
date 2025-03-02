@@ -72,8 +72,8 @@ const CaseLawRetrieval = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 mb-4">
-          <BookOpen className="h-8 w-8 text-purple-600" />
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brown-50 mb-4">
+          <BookOpen className="h-8 w-8 text-black" />
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Case Law & Statute Retrieval</h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -86,12 +86,12 @@ const CaseLawRetrieval = () => {
           <form onSubmit={handleSearch}>
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-grow">
-                <label htmlFor="search-query" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="search-query" className="block text-sm font-medium text-black mb-1">
                   Search Query
                 </label>
                 <div className="relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
+                    <Search className="h-5 w-5 text-black" />
                   </div>
                   <input
                     type="text"
@@ -106,7 +106,7 @@ const CaseLawRetrieval = () => {
               <div className="flex-shrink-0 flex items-end">
                 <button
                   type="submit"
-                  className="bg-purple-600 text-white py-3 px-6 rounded-md hover:bg-purple-700 transition-colors"
+                  className="bg-black text-white py-3 px-6 rounded-md hover:bg-purple-700 transition-colors"
                   disabled={isSearching || !searchQuery.trim()}
                 >
                   {isSearching ? 'Searching...' : 'Search'}
@@ -135,7 +135,7 @@ const CaseLawRetrieval = () => {
               </div>
               
               <div>
-                <label htmlFor="date-range" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="date-range" className="block text-sm font-medium text-black mb-1">
                   Date Range
                 </label>
                 <select
@@ -177,7 +177,7 @@ const CaseLawRetrieval = () => {
       
       {isSearching && (
         <div className="bg-white rounded-xl shadow-md p-8 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blsck mx-auto mb-4"></div>
           <p className="text-gray-700">Searching for relevant case law and statutes...</p>
           <p className="text-sm text-gray-500 mt-2">This may take a moment as we analyze legal databases.</p>
         </div>
@@ -214,17 +214,17 @@ const CaseLawRetrieval = () => {
                     </p>
                     <p className="text-gray-700 mb-4">{result.snippet}</p>
                     <div className="flex items-center space-x-4">
-                      <button className="text-sm text-purple-600 hover:text-purple-800 flex items-center">
+                      <button className="text-sm text-black hover:text-purple-800 flex items-center">
                         <Download className="h-4 w-4 mr-1" />
                         Download PDF
                       </button>
-                      <button className="text-sm text-purple-600 hover:text-purple-800 flex items-center">
+                      <button className="text-sm text-black hover:text-purple-800 flex items-center">
                         <ExternalLink className="h-4 w-4 mr-1" />
                         View Full Case
                       </button>
                     </div>
                   </div>
-                  <div className="bg-purple-100 text-purple-800 text-sm font-medium px-2.5 py-0.5 rounded-full">
+                  <div className="bg-purple-100 text-black text-sm font-medium px-2.5 py-0.5 rounded-full">
                     {result.relevance}% Match
                   </div>
                 </div>
@@ -239,19 +239,19 @@ const CaseLawRetrieval = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-4">Search Tips</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
-              <span className="text-purple-600 font-bold mr-2">•</span>
+              <span className="text-black font-bold mr-2">•</span>
               <span>Use specific legal terms relevant to your issue</span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-600 font-bold mr-2">•</span>
+              <span className="text-black font-bold mr-2">•</span>
               <span>Include jurisdiction if you need cases from a specific court system</span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-600 font-bold mr-2">•</span>
+              <span className="text-black font-bold mr-2">•</span>
               <span>Try different combinations of keywords for better results</span>
             </li>
             <li className="flex items-start">
-              <span className="text-purple-600 font-bold mr-2">•</span>
+              <span className="text-black font-bold mr-2">•</span>
               <span>Use quotation marks for exact phrases (e.g., "reasonable accommodation")</span>
             </li>
           </ul>
@@ -260,28 +260,28 @@ const CaseLawRetrieval = () => {
         <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Popular Searches</h2>
           <div className="flex flex-wrap gap-2">
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Fair housing discrimination
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Eviction moratorium
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Tenant rights
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Employment discrimination
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Workers' compensation
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Child custody
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Consumer protection
             </button>
-            <button className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
+            <button className="bg-purple-100 text-black px-3 py-1 rounded-full text-sm hover:bg-purple-200 transition-colors">
               Small claims procedure
             </button>
           </div>
