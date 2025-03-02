@@ -16,25 +16,25 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-indigo-900 text-white shadow-lg">
+    <nav className="bg-[#c2ad6acb] text-black shadow-lg">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <Scale className="h-10 w-10 text-white" />
+            <Scale className="h-10 w-10 text-black" />
             <span className="text-2xl font-extrabold">advocate.ai</span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4 overflow-x-auto flex-nowrap">
+          <div className="hidden md:flex items-center space-x-4">
             {navLinks.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`text-base font-semibold px-3 py-2 rounded-md transition duration-300 ${
                   location.pathname === item.path
-                    ? "bg-indigo-700"
-                    : "hover:bg-indigo-800"
+                    ? "bg-[#C19A6B] text-white"
+                    : "hover:bg-[#D2B48C] hover:text-[#4B3621]"
                 }`}
               >
                 {item.name}
@@ -46,7 +46,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white focus:outline-none"
+              className="text-black focus:outline-none"
             >
               {isMenuOpen ? (
                 <X className="w-8 h-8" />
@@ -60,7 +60,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-indigo-900">
+        <div className="md:hidden bg-[#F5E6D8]">
           <div className="px-6 py-4 space-y-3">
             {navLinks.map((item) => (
               <Link
@@ -69,8 +69,8 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className={`block text-base font-semibold ${
                   location.pathname === item.path
-                    ? "bg-indigo-700 rounded-md p-3"
-                    : "hover:bg-indigo-800 rounded-md p-3"
+                    ? "bg-[#C19A6B] text-white rounded-md p-3"
+                    : "hover:bg-[#D2B48C] hover:text-[#4B3621] rounded-md p-3"
                 }`}
               >
                 {item.name}

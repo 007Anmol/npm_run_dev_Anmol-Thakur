@@ -51,7 +51,7 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
     render();
   };
 
-  const waveColors = colors ?? ["#4F46E5", "#6D28D9", "#9333EA", "#7C3AED"]; // Default bluish-purplish theme
+  const waveColors = colors ?? ["#F5E6D8", "#EAD2B8", "#D2B48C", "#C19A6B"];
 
   const drawWave = (n: number) => {
     if (!ctx) return;
