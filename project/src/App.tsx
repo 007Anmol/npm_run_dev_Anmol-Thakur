@@ -10,6 +10,7 @@ import LawList from "./pages/LawList";
 import NewsAndHeadline from "./pages/NewsAndHeadline";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import IndianLegalCaseLibrary from "./pages/IndianLegalCaseLibrary";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/news-and-library" element={<NewsAndLibrary />} />
             <Route path="/law-list" element={<LawList />} />
             <Route path="/news-headlines" element={<NewsAndHeadline />} />
+            <Route path="/legal-case-library" element={<IndianLegalCaseLibrary />} />
           </Routes>
         </div>
         <Footer />
